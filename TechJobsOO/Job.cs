@@ -12,8 +12,54 @@ namespace TechJobsOO
         public PositionType JobType { get; set; }
         public CoreCompetency JobCoreCompetency { get; set; }
 
-        // TODO: Add the two necessary constructors.
+        public Job()
+        {
+            Id = nextId;
+            nextId++;
+        }
 
-        // TODO: Generate Equals() and GetHashCode() methods.
+        public Job(string name, Employer employerName, Location employerLocation, PositionType jobType, CoreCompetency jobCoreCompetency) : this()
+        {
+            Name = name;
+            EmployerName = employerName;
+            EmployerLocation = employerLocation;
+            JobType = jobType;
+            JobCoreCompetency = jobCoreCompetency;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Job job &&
+                   Id == job.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id);
+        }
+
+        public override string ToString()
+        {
+            if (Name == null && EmployerName == null && EmployerLocation == null && JobType == null && JobCoreCompetency == null)
+            {
+                return "OOPS! This job does not seem to exist.";
+            }
+            else
+            {
+                string NameValue = Name != null && !Name.Equals("") ? Name : "Data not available";
+                string EmployerNameValue = EmployerName != null && !EmployerName.Value.Equals("") ? EmployerName.Value : "Data not available";
+                string EmployerLocationValue = EmployerLocation != null && !EmployerLocation.Value.Equals("") ? EmployerLocation.Value : "Data not available";
+                string JobTypeValue = JobType != null && !JobType.Value.Equals("") ? JobType.Value : "Data not available";
+                string JobCoreCompetencyValue = JobCoreCompetency != null && !JobCoreCompetency.Value.Equals("") ? JobCoreCompetency.Value : "Data not available";
+                return $@"ID: {Id}
+Name: {NameValue}
+Employer: {EmployerNameValue}
+Location: {EmployerLocationValue}
+Position Type: {JobTypeValue}
+Core Competency: {JobCoreCompetencyValue }";
+            }
+        }
     }
 }
+
+
